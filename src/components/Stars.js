@@ -1,27 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReactStars from "react-stars";
 
-//	Stars: a one to five-star rating component that allows users to rate something
-// (movies in this case, but remember that components are reusable, so you could
-// use it elsewhere!)
+export default function Stars({ starRating, onChange }) {
+  const [stars, setStars] = useState(starRating);
 
-// For the Stars component, I am using "react-rating-stars-component"
-// from https://www.npmjs.com/package/react-rating-stars-component
-// Although it works, the import statement for ReactStars(line 2 above)
-// doesn't seem to find a declaration file for that module. No errors.
-export default function Stars() {
-  const ratingChanged = (newRating) => {
-    alert(`Your rating for this movie: ${newRating} stars`);
-    console.log(newRating);
+  //useEffect hook updates the stars when changed
+  useEffect(() => {
+    onChange(stars);
+  }, [stars, onChange]);
+
+  //handleChange takes the star rating and uses setStars to set the new star rating
+  const handleChange = (newRating) => {
+    setStars(newRating);
   };
 
   return (
     <div>
       <ReactStars
+        className="d-flex justify-content-center"
         count={5}
-        onChange={ratingChanged}
-        size={20}
-        activeColor="#ffd700"
+        onChange={handleChange}
+        size={70}
+        color2="#ff9100"
       />
     </div>
   );
